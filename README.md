@@ -101,10 +101,10 @@ base64_image = image_to_base64(image_path)
 
 # 4. 定义接口URL和参数
 url = 'http://127.0.0.1:5000/ocr'
-params = {'image': base64_image}
+json = {'image': base64_image}
 
 # 5. 使用requests发送GET请求
-response = requests.get(url, params=params)
+response = requests.post(url, json=json)
 
 # 6. 打印结果
 if response.status_code == 200:
