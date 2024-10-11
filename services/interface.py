@@ -9,7 +9,7 @@ from nopaddleocr import OCR
 app = Flask(__name__)
 ocr = OCR(os.path.join(os.path.dirname(__file__), '../models'))
 
-@app.route('/ocr', methods=['GET'])
+@app.route('/ocr', methods=['POST'])
 def process_image():
     base64_image = request.args.get('image')
 
