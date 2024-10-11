@@ -11,7 +11,8 @@ ocr = OCR(os.path.join(os.path.dirname(__file__), '../models'))
 
 @app.route('/ocr', methods=['POST'])
 def process_image():
-    base64_image = request.args.get('image')
+    data = request.get_json()
+    base64_image = data.get('image')
 
     if not base64_image:
         return jsonify({"error": "No image data provided"}), 400
