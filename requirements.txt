@@ -6,3 +6,5 @@ shapely
 pyclipper
 six
 onnxruntime
+flask
+requests

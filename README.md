@@ -69,6 +69,53 @@ print(res)
 # []
 ```
 
+### 4. 服务部署
+
+本项目使用Flask搭建了OCR接口，可以方便调用。
+```shell
+python flask_example.py
+#  * Running on http://127.0.0.1:5000
+```
+
+```python
+import cv2
+import base64
+import requests
+
+
+# 1. 读取图片并转换为Base64
+def image_to_base64(image_path):
+    # 使用 OpenCV 读取图片
+    image = cv2.imread(image_path)
+    # 将图片编码为 JPEG 格式
+    _, buffer = cv2.imencode('.jpg', image)
+    # 将编码后的图片转换为Base64
+    return base64.b64encode(buffer).decode('utf-8')
+
+
+# 2. 设置图片路径
+image_path = 'single.png'  # 替换为你的图片路径
+
+# 3. 转换图片为Base64格式
+base64_image = image_to_base64(image_path)
+
+# 4. 定义接口URL和参数
+url = 'http://127.0.0.1:5000/ocr'
+params = {'image': base64_image}
+
+# 5. 使用requests发送GET请求
+response = requests.get(url, params=params)
+
+# 6. 打印结果
+if response.status_code == 200:
+    print("Text:", response.json())
+else:
+    print("Error:", response.status_code, response.text)
+
+```
+
+
 ## 项目说明
  - 仅支持CPU推理
+
 
